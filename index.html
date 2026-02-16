@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Babie 💌</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    margin-top: 15%;
+    position: relative;
+    z-index: 10;
+    padding: 0 10px;
+}
+
+button {
+    padding: 15px 30px;
+    margin: 12px;
+    font-size: 20px;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background-color: #ff4e8b;
+    color: white;
+    min-width: 180px;
+}
+
+button:hover {
+    background-color: #ff80ab;
+}
+
+.hidden { display: none; }
+
+.letter-box {
+    width: 220px;
+    height: 140px;
+    background-color: #ff4e8b;
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.heart, .rose {
+    position: absolute;
+    pointer-events: none;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.5); opacity:0.7; }
+    100% { transform: translateY(-10vh) scale(1); opacity:1; }
+}
+
+/* Typewriter effect */
+.typewriter {
+    display: inline-block;
+    white-space: pre-wrap;
+    font-size: 24px;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c9d5c5a1d.mp3?filename=romantic-music-10831.mp3" autoplay loop></audio>
+
+<!-- Step 1: Intro -->
+<div class="container" id="step1">
+    <h1>Babie… stay right here for me 😏</h1>
+    <button onclick="nextStep(1)">Okay…</button>
+</div>
+
+<!-- Step 2: Teasing Question 1 -->
+<div class="container hidden" id="step2">
+    <h1>Do you know what effect you have on me?</h1>
+    <button onclick="nextStep(2)">Yes… I know 😌</button>
+    <button onclick="hint1()">No… tell me 🤔</button>
+    <p id="hint1" class="hidden">Good girl… I’ll show you 😏</p>
+</div>
+
+<!-- Step 3: Teasing Question 2 -->
+<div class="container hidden" id="step3">
+    <h1>Do you want me to tell you how much I love you… or maybe more? 😏</h1>
+    <button onclick="nextStep(3)">Love first 😌</button>
+    <button onclick="ahmTease()">Tell me more 😏</button>
+    <p id="ahmText" class="hidden">You’ll have to wait just a second… ahm ahm 😏</p>
+</div>
+
+<!-- Step 4: Intimate Build-Up -->
+<div class="container hidden" id="step4">
+    <div class="typewriter" id="typeText"></div>
+    <button class="hidden" id="finalButton" onclick="finalReveal()">Come here 😌</button>
+</div>
+
+<!-- Step 5: Final Reveal -->
+<div class="container hidden" id="step5">
+    <h1 style="font-size:28px;">I love you sooo much Babie ❤️</h1>
+    <p style="font-size:22px;">– Faizan</p>
+</div>
+
+<script>
+// Music Volume
+document.getElementById("music").volume = 0.2;
+
+// Floating hearts & roses
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 40 + 20) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML = "🌹";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.fontSize = (Math.random() * 30 + 15) + "px";
+    rose.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 8000);
+}, 300);
+
+// Steps Control
+function nextStep(step){
+    document.getElementById("step"+step).classList.add("hidden");
+    document.getElementById("step"+(step+1)).classList.remove("hidden");
+}
+
+// Hints for playful buttons
+function hint1(){
+    document.getElementById("hint1").classList.remove("hidden");
+}
+
+function ahmTease(){
+    document.getElementById("ahmText").classList.remove("hidden");
+}
+
+// Step 4: Typewriter intimate text
+const intimateText = `Stay right here with me…\nDon't move…\nI just want to look at you for a second.\n
+The way your eyes shine…\nThe way your lips curve when you smile…\nThe way your presence alone makes my heart race…\n
+And… ahm ahm 😏\nYou know exactly what I mean.\n
+I don’t just want to hold you…\nI want you closer, feel your warmth, feel your heartbeat…\n
+There’s something about you…\nSomething that pulls me in every single time.\n
+I don’t just like you… I crave you.\nYour energy… Your presence… Everything about you.\n`;
+
+let i = 0;
+function typeWriter() {
+    if(i < intimateText.length){
+        document.getElementById("typeText").innerHTML += intimateText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    } else {
+        document.getElementById("finalButton").classList.remove("hidden");
+    }
+}
+
+// Step 4 trigger
+document.getElementById("step3").querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+        nextStep(3);
+        setTimeout(typeWriter, 500);
+    });
+});
+
+// Final reveal
+function finalReveal(){
+    document.getElementById("step4").classList.add("hidden");
+    document.getElementById("step5").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
